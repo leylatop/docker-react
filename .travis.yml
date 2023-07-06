@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+    before_install:
+      - docker build -t leylatop/docker-react -f Dockerfile.dev .
+
+    script:
+      # - docker run leylatop/docker-react npm run test -- --coverage
+      # --coverage的意思是输出测试覆盖率
+      # -e的意思是设置环境变量
+      # 设置CI=true是为了让npm run test命令在执行完毕后自动退出，不然它会一直挂起
+      - docker run -e CI=true leylatop/docker-react npm run test -- --coverage
